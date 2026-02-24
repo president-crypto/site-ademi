@@ -1,0 +1,113 @@
+{
+  "total_count": 1,
+  "jobs": [
+    {
+      "id": 64666900228,
+      "run_id": 22347822578,
+      "workflow_name": "Deploy to Hostinger",
+      "head_branch": "master",
+      "run_url": "https://api.github.com/repos/president-crypto/site-ademi/actions/runs/22347822578",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORRQ13M8AAAAPDnKXBA",
+      "head_sha": "cf010f096cfe663d69c6169a395c7896b0542c07",
+      "url": "https://api.github.com/repos/president-crypto/site-ademi/actions/jobs/64666900228",
+      "html_url": "https://github.com/president-crypto/site-ademi/actions/runs/22347822578/job/64666900228",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-02-24T10:57:04Z",
+      "started_at": "2026-02-24T10:57:07Z",
+      "completed_at": "2026-02-24T10:57:26Z",
+      "name": "🎉 Deploy",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-02-24T10:57:08Z",
+          "completed_at": "2026-02-24T10:57:09Z"
+        },
+        {
+          "name": "🚚 Get latest code",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-02-24T10:57:09Z",
+          "completed_at": "2026-02-24T10:57:11Z"
+        },
+        {
+          "name": "🔧 Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-02-24T10:57:11Z",
+          "completed_at": "2026-02-24T10:57:13Z"
+        },
+        {
+          "name": "📦 Install dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-02-24T10:57:13Z",
+          "completed_at": "2026-02-24T10:57:16Z"
+        },
+        {
+          "name": "🏗️ Build Project",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-02-24T10:57:16Z",
+          "completed_at": "2026-02-24T10:57:20Z"
+        },
+        {
+          "name": "🔍 List build files",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-02-24T10:57:20Z",
+          "completed_at": "2026-02-24T10:57:20Z"
+        },
+        {
+          "name": "📂 Sync files (FTP)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-02-24T10:57:20Z",
+          "completed_at": "2026-02-24T10:57:23Z"
+        },
+        {
+          "name": "Post 🔧 Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-02-24T10:57:23Z",
+          "completed_at": "2026-02-24T10:57:24Z"
+        },
+        {
+          "name": "Post 🚚 Get latest code",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-02-24T10:57:24Z",
+          "completed_at": "2026-02-24T10:57:24Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-02-24T10:57:24Z",
+          "completed_at": "2026-02-24T10:57:24Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/president-crypto/site-ademi/check-runs/64666900228",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000005,
+      "runner_name": "GitHub Actions 1000000005",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}
