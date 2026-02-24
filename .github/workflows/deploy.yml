@@ -34,4 +34,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./public_html/ # Change this if your site is in a subdirectory
+          server-dir: ./public_html/
+          state-name: .ftp-deploy-sync-state-forced.json
