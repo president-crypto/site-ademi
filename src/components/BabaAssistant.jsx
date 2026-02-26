@@ -92,45 +92,59 @@ const BabaAssistant = () => {
         setInput('');
         setIsTyping(true);
 
-        try {
-            // Tentative d'obtention d'une réponse de Gemini
-            const botResponseText = await getGeminiResponse(userMessageText, knowledgeBase);
+        const currentInputLower = userMessageText.toLowerCase();
 
+        // Step 1: Check local knowledge base first
+        let localResponse = null;
+        let localLink = null;
+        let localLinkText = null;
+
+        for (const item of knowledgeBase) {
+            if (item.keywords.some(k => currentInputLower.includes(k))) {
+                localResponse = item.response;
+                localLink = item.link || null;
+                localLinkText = item.linkText || null;
+                break;
+            }
+        }
+
+        if (localResponse) {
+            // Found in knowledge base — respond immediately without API call
+            const botMessage = {
+                id: messages.length + 2,
+                type: 'bot',
+                text: localResponse,
+                link: localLink,
+                linkText: localLinkText,
+                time: getSafeTime()
+            };
+            setMessages(prev => [...prev, botMessage]);
+            setIsTyping(false);
+            return;
+        }
+
+        // Step 2: Question not in knowledge base — try Gemini API
+        try {
+            const botResponseText = await getGeminiResponse(userMessageText, knowledgeBase);
             const botMessage = {
                 id: messages.length + 2,
                 type: 'bot',
                 text: botResponseText,
                 time: getSafeTime()
             };
-
             setMessages(prev => [...prev, botMessage]);
         } catch (error) {
             console.error("Erreur lors de la récupération de la réponse:", error);
 
-            // Fallback sur la base de connaissances locale en cas d'erreur
-            let fallbackResponse = "Je ne suis pas sûr de bien comprendre votre demande. Souhaitez-vous discuter directement avec l'un de nos conseillers ?";
-            let link = '/contact';
-            let linkText = 'Prendre rendez-vous avec l\'équipe';
-
-            const currentInputLower = userMessageText.toLowerCase();
-            for (const item of knowledgeBase) {
-                if (item.keywords.some(k => currentInputLower.includes(k))) {
-                    fallbackResponse = item.response;
-                    link = item.link || null;
-                    linkText = item.linkText || null;
-                    break;
-                }
-            }
-
+            // Step 3: API failed — show helpful fallback
             const botMessage = {
                 id: messages.length + 2,
                 type: 'bot',
-                text: fallbackResponse,
-                link: link,
-                linkText: linkText,
+                text: "Je ne suis pas encore formé pour répondre à cette question spécifique. Souhaitez-vous contacter directement notre équipe qui sera ravie de vous aider ?",
+                link: '/contact',
+                linkText: "Contacter l'équipe ADEMI",
                 time: getSafeTime()
             };
-
             setMessages(prev => [...prev, botMessage]);
         } finally {
             setIsTyping(false);
