@@ -34,6 +34,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./public_html/
-          state-name: .ftp-deploy-sync-state-forced-v5.json
+          server-dir: public_html/
+          state-name: .ftp-deploy-sync-state-forced-v6.json
           dangerous-clean-up: true
