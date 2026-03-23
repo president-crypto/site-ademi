@@ -9,7 +9,7 @@ export const getGeminiResponse = async (userMessage, context) => {
         }
 
         const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const prompt = `
             Tu es Baba, l'assistant virtuel d'ADEMI (Appui au Développement Économique et à la Mobilité Internationale).
