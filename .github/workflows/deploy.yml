@@ -22,10 +22,23 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
+      - name: 🔐 Inject API Key into PHP Proxy
+        run: |
+          node -e "
+            const fs = require('fs');
+            const file = 'public/api/anthropic.php';
+            let content = fs.readFileSync(file, 'utf8');
+            content = content.replace('%%ANTHROPIC_API_KEY%%', process.env.VITE_ANTHROPIC_API_KEY);
+            fs.writeFileSync(file, content, 'utf8');
+          "
+        env:
+          VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
+
       - name: 🏗️ Build Project
         run: npm run build
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+          VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
 
       - name: 📂 Sync files (FTP)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

@@ -32,3 +32,6 @@ public/videos/P1030232.mp4
 *.wmv
 
 .env
+models.json
+test-*.js
+scratch/

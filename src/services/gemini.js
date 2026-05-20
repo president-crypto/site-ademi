@@ -9,7 +9,7 @@ export const getGeminiResponse = async (userMessage, context) => {
         }
 
         const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
         const prompt = `
             Tu es Baba, l'assistant virtuel d'ADEMI (Appui au Développement Économique et à la Mobilité Internationale).
@@ -31,7 +31,15 @@ export const getGeminiResponse = async (userMessage, context) => {
         const response = await result.response;
         return response.text();
     } catch (error) {
-        console.error("Erreur Gemini:", error);
-        return "Désolé, je rencontre une petite difficulté technique. Puis-je vous aider avec autre chose ou souhaitez-vous contacter notre équipe ?";
+        console.error("Erreur Gemini Détails:", error.message, error.status);
+        
+        if (error.message?.includes("Clé API Gemini manquante")) {
+            return "Configuration de l'assistant incomplète (clé API manquante). Veuillez contacter l'administrateur.";
+        }
+        
+        const errorMessage = error.message?.toLowerCase().includes("quota") 
+            ? "L'assistant a atteint sa limite de messages (quota) pour le moment. Veuillez réessayer plus tard !"
+            : "Désolé, je rencontre une petite difficulté technique. Puis-je vous aider avec autre chose ou souhaitez-vous contacter notre équipe ?";
+        return errorMessage;
     }
 };

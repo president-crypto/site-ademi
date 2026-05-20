@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare, X, Send, User, Bot, Calendar, ExternalLink } from 'lucide-react';
-import { getGeminiResponse } from '../services/gemini';
+import { getClaudeResponse } from '../services/claude';
 
 const BabaAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +23,14 @@ const BabaAssistant = () => {
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef(null);
+    const [showSuggestions, setShowSuggestions] = useState(true);
+
+    const suggestions = [
+        "Qui est ADEMI ?",
+        "C'est quoi Sama Radio ?",
+        "Mobilité Internationale ?",
+        "Comment vous aider ?"
+    ];
 
     const knowledgeBase = [
         {
@@ -123,9 +131,9 @@ const BabaAssistant = () => {
             return;
         }
 
-        // Step 2: Question not in knowledge base — try Gemini API
+        // Step 2: Question not in knowledge base — try Claude API
         try {
-            const botResponseText = await getGeminiResponse(userMessageText, knowledgeBase);
+            const botResponseText = await getClaudeResponse(userMessageText, knowledgeBase);
             const botMessage = {
                 id: messages.length + 2,
                 type: 'bot',
@@ -148,14 +156,21 @@ const BabaAssistant = () => {
             setMessages(prev => [...prev, botMessage]);
         } finally {
             setIsTyping(false);
+            if (showSuggestions) setShowSuggestions(false);
         }
+    };
+
+    const handleSuggestionClick = (text) => {
+        setInput(text);
+        // We use a small timeout to let the state update before sending
+        setTimeout(() => handleSend(), 0);
     };
 
     return (
         <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
             {/* Chat Window */}
             {isOpen && (
-                <div className="mb-4 w-[350px] md:w-[400px] h-[500px] bg-white rounded-3xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden animate-fade-in-up">
+                <div className="mb-4 w-[350px] md:w-[400px] h-[600px] bg-white/95 backdrop-blur-xl rounded-3xl shadow-[0_20px_50px_rgba(26,54,93,0.15)] border border-white/20 flex flex-col overflow-hidden animate-fade-in-up">
                     {/* Header */}
                     <div className="p-6 bg-primary text-white flex items-center justify-between">
                         <div className="flex items-center gap-3">
@@ -188,9 +203,9 @@ const BabaAssistant = () => {
                                         {msg.link && (
                                             <a
                                                 href={msg.link}
-                                                className="mt-3 flex items-center gap-2 text-xs font-black p-2 bg-primary/5 rounded-lg text-primary hover:bg-primary/10 transition-all border border-primary/10"
+                                                className="mt-3 flex items-center justify-center gap-2 text-xs font-bold p-2.5 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-md shadow-primary/20 group"
                                             >
-                                                <Calendar size={14} /> {msg.linkText} <ExternalLink size={12} />
+                                                <Calendar size={14} className="group-hover:scale-110 transition-transform" /> {msg.linkText} <ExternalLink size={12} />
                                             </a>
                                         )}
                                     </div>
@@ -209,6 +224,21 @@ const BabaAssistant = () => {
                         )}
                         <div ref={messagesEndRef} />
                     </div>
+
+                    {/* Suggestions Area */}
+                    {showSuggestions && messages.length <= 1 && (
+                        <div className="px-6 py-2 flex flex-wrap gap-2 animate-fade-in">
+                            {suggestions.map((s, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => handleSuggestionClick(s)}
+                                    className="text-xs bg-white border border-primary/20 text-primary px-3 py-1.5 rounded-full hover:bg-primary hover:text-white transition-all duration-300 shadow-sm whitespace-nowrap"
+                                >
+                                    {s}
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Input Area */}
                     <div className="p-4 bg-white border-t border-gray-100">
@@ -238,14 +268,14 @@ const BabaAssistant = () => {
             {/* Toggle Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95 ${isOpen ? 'bg-white text-primary rotate-90 border border-gray-100' : 'bg-primary text-white'
+                className={`w-16 h-16 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(26,54,93,0.3)] transition-all duration-500 transform hover:scale-110 active:scale-95 ${isOpen ? 'bg-white text-primary rotate-180 border border-gray-100' : 'bg-primary text-white'
                     }`}
             >
-                {isOpen ? <X size={32} /> : <MessageSquare size={32} />}
+                {isOpen ? <X size={28} /> : <MessageSquare size={32} />}
                 {!isOpen && (
-                    <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                    <span className="absolute -top-1 -right-1 flex h-6 w-6">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-4 w-4 bg-secondary"></span>
+                        <span className="relative inline-flex rounded-full h-6 w-6 bg-secondary flex items-center justify-center text-[10px] text-white font-bold">1</span>
                     </span>
                 )}
             </button>
