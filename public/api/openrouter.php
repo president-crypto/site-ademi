@@ -24,8 +24,8 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 $models = [
     'meta-llama/llama-3.3-70b-instruct:free',
-    'deepseek/deepseek-chat:free',
-    'mistralai/mistral-7b-instruct:free'
+    'deepseek/deepseek-v4-flash:free',
+    'openrouter/free'
 ];
 
 $max_tokens = $input['max_tokens'] ?? 512;
@@ -45,7 +45,8 @@ foreach ($models as $model) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
         'Authorization: Bearer ' . $api_key,
