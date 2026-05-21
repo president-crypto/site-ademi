@@ -69,6 +69,6 @@ jobs:
       - name: 🌐 Verify PHP endpoints
         run: |
           echo "Verifying PHP endpoints..."
-          curl -s -o /dev/null -w "anthropic.php: HTTP %{http_code}\n" "https://associationademi.com/api/anthropic.php"
-          curl -s -o /dev/null -w "openrouter.php: HTTP %{http_code}\n" "https://associationademi.com/api/openrouter.php"
+          curl -s -o /dev/null -w "anthropic.php: HTTP %{http_code}\n" --connect-timeout 5 --max-time 10 "https://associationademi.com/api/anthropic.php" || echo "anthropic.php: timeout"
+          curl -s -o /dev/null -w "openrouter.php: HTTP %{http_code}\n" --connect-timeout 5 --max-time 10 "https://associationademi.com/api/openrouter.php" || echo "openrouter.php: timeout"
           echo "Done."
