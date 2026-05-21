@@ -22,34 +22,72 @@ if (empty($api_key)) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-$payload = [
-    'model' => $input['model'] ?? 'meta-llama/llama-3.2-3b-instruct:free',
-    'max_tokens' => $input['max_tokens'] ?? 512,
-    'temperature' => $input['temperature'] ?? 0.7,
-    'messages' => $input['messages'] ?? []
+$models = [
+    'meta-llama/llama-3.3-70b-instruct:free',
+    'deepseek/deepseek-chat:free',
+    'mistralai/mistral-7b-instruct:free'
 ];
 
-$ch = curl_init('https://openrouter.ai/api/v1/chat/completions');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json',
-    'Authorization: Bearer ' . $api_key,
-    'HTTP-Referer: https://associationademi.com',
-    'X-Title: Assistant Baba — ADEMI'
-]);
+$max_tokens = $input['max_tokens'] ?? 512;
+$temperature = $input['temperature'] ?? 0.7;
+$messages = $input['messages'] ?? [];
+$last_error = null;
 
-$response = curl_exec($ch);
-$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+foreach ($models as $model) {
+    $payload = [
+        'model' => $model,
+        'max_tokens' => $max_tokens,
+        'temperature' => $temperature,
+        'messages' => $messages
+    ];
 
-if (curl_errno($ch)) {
-    http_response_code(500);
-    echo json_encode(['error' => ['message' => 'Curl error: ' . curl_error($ch)]]);
-} else {
-    http_response_code($http_code);
+    $ch = curl_init('https://openrouter.ai/api/v1/chat/completions');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $api_key,
+        'HTTP-Referer: https://associationademi.com',
+        'X-Title: Assistant Baba — ADEMI'
+    ]);
+
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curl_error = curl_error($ch);
+    curl_close($ch);
+
+    if ($curl_error) {
+        $last_error = 'Curl error: ' . $curl_error;
+        continue;
+    }
+
+    if ($http_code === 429) {
+        $last_error = 'Rate limited';
+        continue;
+    }
+
+    if ($http_code === 404) {
+        $last_error = 'Model not found';
+        continue;
+    }
+
+    if ($http_code !== 200) {
+        $last_error = 'HTTP ' . $http_code;
+        continue;
+    }
+
+    $data = json_decode($response, true);
+    if (!$data || isset($data['error'])) {
+        $last_error = $data['error']['message'] ?? 'Unknown error';
+        continue;
+    }
+
+    http_response_code(200);
     echo $response;
+    exit;
 }
 
-curl_close($ch);
-?>
+http_response_code(503);
+echo json_encode(['error' => ['message' => $last_error ?: 'All models unavailable']]);
