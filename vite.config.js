@@ -16,6 +16,16 @@ export default defineConfig({
           });
         },
       },
+      '/api/openrouter': {
+        target: 'https://openrouter.ai',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/openrouter/, '/api/v1/chat/completions'),
+        configure: (proxy, options) => {
+          proxy.on('error', (err, req, res) => {
+            console.log('proxy error', err);
+          });
+        },
+      },
     },
   },
 })

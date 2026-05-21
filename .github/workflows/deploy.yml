@@ -22,17 +22,24 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🔐 Inject API Key into PHP Proxy
+      - name: 🔐 Inject API Keys into PHP Proxies
         run: |
           node -e "
             const fs = require('fs');
-            const file = 'public/api/anthropic.php';
-            let content = fs.readFileSync(file, 'utf8');
-            content = content.replace('%%ANTHROPIC_API_KEY%%', process.env.VITE_ANTHROPIC_API_KEY);
-            fs.writeFileSync(file, content, 'utf8');
+
+            const anthropicFile = 'public/api/anthropic.php';
+            let anthropicContent = fs.readFileSync(anthropicFile, 'utf8');
+            anthropicContent = anthropicContent.replace('%%ANTHROPIC_API_KEY%%', process.env.VITE_ANTHROPIC_API_KEY);
+            fs.writeFileSync(anthropicFile, anthropicContent, 'utf8');
+
+            const openrouterFile = 'public/api/openrouter.php';
+            let openrouterContent = fs.readFileSync(openrouterFile, 'utf8');
+            openrouterContent = openrouterContent.replace('%%OPENROUTER_API_KEY%%', process.env.VITE_OPENROUTER_API_KEY);
+            fs.writeFileSync(openrouterFile, openrouterContent, 'utf8');
           "
         env:
           VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
+          VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
 
       - name: 🏗️ Build Project
         run: npm run build

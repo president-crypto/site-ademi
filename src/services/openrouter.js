@@ -5,10 +5,12 @@
  */
 
 export const getOpenRouterResponse = async (userMessage, context) => {
+    const isDev = import.meta.env.DEV;
+    const endpoint = isDev ? '/api/openrouter' : '/api/openrouter.php';
     const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 
-    if (!API_KEY) {
-        throw new Error("Clé API OpenRouter manquante dans .env");
+    if (isDev && !API_KEY) {
+        throw new Error("Clé API OpenRouter manquante.");
     }
 
     const systemPrompt = `Tu es Baba, l'assistant virtuel officiel et chaleureux d'ADEMI (Appui au Développement Économique et à la Mobilité Internationale).
@@ -27,14 +29,19 @@ CONSIGNES DE PERSONNALITÉ :
 5. LIMITES : Si tu ne sais pas, oriente poliment vers la page de contact ou propose de laisser un message pour l'équipe de Monsieur Baba Badji (le Président).
 6. LANGUE : Réponds TOUJOURS en français, même si la question est posée dans une autre langue.`;
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+
+    if (isDev) {
+        headers['Authorization'] = `Bearer ${API_KEY}`;
+        headers['HTTP-Referer'] = 'https://associationademi.com';
+        headers['X-Title'] = 'Assistant Baba — ADEMI';
+    }
+
+    const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${API_KEY}`,
-            'HTTP-Referer': 'https://associationademi.fr',
-            'X-Title': 'Assistant Baba — ADEMI'
-        },
+        headers,
         body: JSON.stringify({
             model: 'meta-llama/llama-3.1-8b-instruct:free',
             max_tokens: 512,
