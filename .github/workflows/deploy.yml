@@ -56,6 +56,15 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: public_html/
-          state-name: .ftp-deploy-sync-state-forced-v9.json
           dangerous-clean-slate: true
           log-level: verbose
+
+      - name: 🌐 Verify PHP endpoints & purge CDN cache
+        run: |
+          echo "Verifying PHP endpoints..."
+          curl -s -o /dev/null -w "anthropic.php: HTTP %{http_code}\n" "https://associationademi.com/api/anthropic.php"
+          curl -s -o /dev/null -w "openrouter.php: HTTP %{http_code}\n" "https://associationademi.com/api/openrouter.php"
+          echo "Purging CDN cache for updated files..."
+          curl -s -o /dev/null -w "index.html: HTTP %{http_code}\n" -X PURGE "https://associationademi.com/" || true
+          curl -s -o /dev/null -w "anthropic.php: HTTP %{http_code}\n" -X PURGE "https://associationademi.com/api/anthropic.php" || true
+          curl -s -o /dev/null -w "openrouter.php: HTTP %{http_code}\n" -X PURGE "https://associationademi.com/api/openrouter.php" || true
