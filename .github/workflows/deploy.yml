@@ -48,33 +48,27 @@ jobs:
           VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
           VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
 
-      - name: 📂 Sync all files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: public_html/
-          dangerous-clean-slate: true
-          log-level: verbose
+      - name: 📂 Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: 🔧 Ensure PHP proxy files exist on server
+      - name: 📂 Sync files via FTP
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          echo "Ensuring PHP files are uploaded to public_html/api/..."
-          for file in dist/api/*.php; do
-            filename=$(basename "$file")
-            echo "Uploading $filename..."
-            curl -s -T "$file" --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER/public_html/api/$filename" || echo "curl upload failed for $filename (may already be synced)"
-          done
-          echo "Verifying..."
+          lftp -c "
+            set ftp:ssl-allow true;
+            set ftp:ssl-force true;
+            set ssl:verify-certificate no;
+            open -u \"$FTP_USERNAME\",\"$FTP_PASSWORD\" \"$FTP_SERVER\";
+            mirror -R --delete --verbose ./dist/ ./public_html/;
+            quit;
+          "
+
+      - name: 🌐 Verify & purge CDN
+        run: |
+          echo "Verifying PHP endpoints..."
           curl -s -o /dev/null -w "anthropic.php: HTTP %{http_code}\n" "https://associationademi.com/api/anthropic.php"
           curl -s -o /dev/null -w "openrouter.php: HTTP %{http_code}\n" "https://associationademi.com/api/openrouter.php"
-          echo "Purging CDN cache..."
-          curl -s -o /dev/null -w "index.html: HTTP %{http_code}\n" -X PURGE "https://associationademi.com/" || true
-          curl -s -o /dev/null -w "anthropic.php: HTTP %{http_code}\n" -X PURGE "https://associationademi.com/api/anthropic.php" || true
-          curl -s -o /dev/null -w "openrouter.php: HTTP %{http_code}\n" -X PURGE "https://associationademi.com/api/openrouter.php" || true
+          echo "Done."
