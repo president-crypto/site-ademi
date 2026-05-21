@@ -47,7 +47,7 @@ const BabaAssistant = () => {
             response: "Les VAMO (Vieux Ayant Moins d'Opportunités) sont les personnes de plus de 25 ans que nous soutenons dans leur insertion socio-professionnelle.",
         },
         {
-            keywords: ['président', 'baba badji', 'dirigeant', 'équipe', 'membre', 'qui travaille', 'responsable'],
+            keywords: ['président', 'baba badji', 'dirigeant', 'équipe', 'qui travaille', 'responsable', 'bureau'],
             response: "L'équipe d'ADEMI est dirigée par Monsieur BADJI Baba (Président). Elle comprend aussi Doudou DJIBA (Vice-Président), Mouhidine MADI SIDI (Relations Internationales), Carine MEDERER (Secrétaire Générale), Ndèye Yacine CAMARA (Projets), Bourama DIEDHIOU (Diaspora), Mohamed KOTE (Paris) et Seynabou DIAGNE (Trésorière).",
         },
         {
@@ -69,6 +69,12 @@ const BabaAssistant = () => {
         {
             keywords: ['formation', 'cours', 'apprendre', 'leadership', 'numérique'],
             response: "Nous proposons des formations en Leadership & Entrepreneuriat (cycle de 5 jours), en Mobilité Internationale et en Inclusion par le Numérique.",
+        },
+        {
+            keywords: ['devenir membre', 'être membre', 'adhérer', 'adhésion', 'inscription', 'rejoindre', 'comment faire pour'],
+            response: "Pour devenir membre d'ADEMI et nous rejoindre, rien de plus simple ! Il vous suffit de nous contacter via notre page de contact ou de nous rendre visite directement. Nous vous guiderons sur les démarches d'adhésion et vous pourrez participer activement à nos actions d'insertion et de mobilité internationale pour les jeunes et les adultes. Toute personne partageant nos valeurs est la bienvenue !",
+            link: '/contact',
+            linkText: 'Nous contacter pour adhérer'
         },
         {
             keywords: ['don', 'soutenir', 'aider', 'argent', 'financement'],
