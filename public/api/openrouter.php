@@ -23,7 +23,7 @@ if (empty($api_key)) {
 $input = json_decode(file_get_contents('php://input'), true);
 
 $payload = [
-    'model' => $input['model'] ?? 'meta-llama/llama-3.3-70b-instruct:free',
+    'model' => $input['model'] ?? 'meta-llama/llama-3.2-3b-instruct:free',
     'max_tokens' => $input['max_tokens'] ?? 512,
     'temperature' => $input['temperature'] ?? 0.7,
     'messages' => $input['messages'] ?? []
