@@ -49,5 +49,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: public_html/
-          state-name: .ftp-deploy-sync-state-forced-v8.json
+          state-name: .ftp-deploy-sync-state-forced-v9.json
           dangerous-clean-slate: true
+          log-level: verbose
