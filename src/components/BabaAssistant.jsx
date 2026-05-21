@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare, X, Send, User, Bot, Calendar, ExternalLink } from 'lucide-react';
-import { getClaudeResponse } from '../services/claude';
+import { getOpenRouterResponse } from '../services/openrouter';
+import { getGeminiResponse } from '../services/gemini';
 
 const BabaAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -131,9 +132,17 @@ const BabaAssistant = () => {
             return;
         }
 
-        // Step 2: Question not in knowledge base — try Claude API
+        // Step 2: Question not in knowledge base — try OpenRouter first, then Gemini as fallback
         try {
-            const botResponseText = await getClaudeResponse(userMessageText, knowledgeBase);
+            let botResponseText;
+            try {
+                // Primary: OpenRouter (Llama 3.1 - gratuit)
+                botResponseText = await getOpenRouterResponse(userMessageText, knowledgeBase);
+            } catch (openRouterError) {
+                console.warn("OpenRouter indisponible, bascule sur Gemini:", openRouterError.message);
+                // Fallback: Gemini
+                botResponseText = await getGeminiResponse(userMessageText, knowledgeBase);
+            }
             const botMessage = {
                 id: messages.length + 2,
                 type: 'bot',
@@ -142,13 +151,13 @@ const BabaAssistant = () => {
             };
             setMessages(prev => [...prev, botMessage]);
         } catch (error) {
-            console.error("Erreur lors de la récupération de la réponse:", error);
+            console.error("Tous les moteurs IA ont échoué:", error);
 
-            // Step 3: API failed — show helpful fallback
+            // Step 3: All APIs failed — show helpful fallback
             const botMessage = {
                 id: messages.length + 2,
                 type: 'bot',
-                text: "Je ne suis pas encore formé pour répondre à cette question spécifique. Souhaitez-vous contacter directement notre équipe qui sera ravie de vous aider ?",
+                text: "Je rencontre une difficulté technique momentanée. N'hésitez pas à contacter directement notre équipe qui sera ravie de vous aider !",
                 link: '/contact',
                 linkText: "Contacter l'équipe ADEMI",
                 time: getSafeTime()
