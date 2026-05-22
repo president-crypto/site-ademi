@@ -10,13 +10,8 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: 🔧 Install git-lfs
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq git-lfs
-
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
-        with:
-          lfs: true
 
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
@@ -53,11 +48,10 @@ jobs:
           VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
           VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
 
-      - name: 📂 Remove gallery videos
+      - name: 📂 Remove large gallery videos from dist (keep only background)
         run: |
           rm -rf ./dist/videos/cite_folder ./dist/videos/maire_folder ./dist/videos/orks_folder ./dist/videos/senegal_folder ./dist/videos/stage_hidaya ./dist/videos/stage_wendy "./dist/videos/VIDEO ARRIERE-PLAN ACCUEIL SITE ADEMI" "./dist/videos/Video emission radio REVELATIONS  avec Samantha"
           rm -f ./dist/videos/soutien_senegal.mp4 ./dist/videos/tournoi_orks.mp4 ./dist/videos/visite_maire.mp4
-          ls -lh ./dist/videos/
 
       - name: 📂 Sync files via FTP
         env:
@@ -69,10 +63,11 @@ jobs:
             set ftp:ssl-allow true;
             set ftp:ssl-force true;
             set ssl:verify-certificate no;
-            set net:timeout 300;
-            set net:max-retries 3;
+            set net:timeout 120;
             open -u \"$FTP_USERNAME\",\"$FTP_PASSWORD\" \"$FTP_SERVER\";
-            mirror -R --delete --verbose ./dist/ ../domains/associationademi.com/public_html/;
+            mirror -R --delete --verbose \
+              --exclude 'videos/accueil_bg.mp4' \
+              ./dist/ ../domains/associationademi.com/public_html/;
             quit;
           "
 
