@@ -50,19 +50,23 @@ jobs:
           VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
           VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
 
-      - name: 📂 Install lftp & ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp ffmpeg
+      - name: 📂 Install sshpass
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
 
-      - name: 📂 Compress & prepare videos
+      - name: 📂 Remove gallery videos
         run: |
           rm -rf ./dist/videos/cite_folder ./dist/videos/maire_folder ./dist/videos/orks_folder ./dist/videos/senegal_folder ./dist/videos/stage_hidaya ./dist/videos/stage_wendy "./dist/videos/VIDEO ARRIERE-PLAN ACCUEIL SITE ADEMI" "./dist/videos/Video emission radio REVELATIONS  avec Samantha"
           rm -f ./dist/videos/soutien_senegal.mp4 ./dist/videos/tournoi_orks.mp4 ./dist/videos/visite_maire.mp4
           ls -lh ./dist/videos/accueil_bg.mp4
-          ffmpeg -y -i ./dist/videos/accueil_bg.mp4 -vf "scale=1920:-2" -c:v libx264 -crf 28 -preset fast -c:a aac -b:a 64k ./dist/videos/accueil_bg_compressed.mp4 2>&1
-          mv ./dist/videos/accueil_bg_compressed.mp4 ./dist/videos/accueil_bg.mp4
-          ls -lh ./dist/videos/accueil_bg.mp4
 
-      - name: 📂 Sync all files via FTP
+      - name: 📂 Create videos directory and upload bg video via SCP
+        env:
+          SSHPASS: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 65002 u614100224@147.79.103.131 "mkdir -p /home/u614100224/domains/associationademi.com/public_html/videos"
+          sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 ./dist/videos/accueil_bg.mp4 u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/videos/accueil_bg.mp4
+
+      - name: 📂 Sync files via FTP
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
