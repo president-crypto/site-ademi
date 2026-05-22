@@ -56,24 +56,13 @@ jobs:
           rm -rf ./dist/videos/cite_folder ./dist/videos/maire_folder ./dist/videos/orks_folder ./dist/videos/senegal_folder ./dist/videos/stage_hidaya ./dist/videos/stage_wendy "./dist/videos/VIDEO ARRIERE-PLAN ACCUEIL SITE ADEMI" "./dist/videos/Video emission radio REVELATIONS  avec Samantha"
           rm -f ./dist/videos/soutien_senegal.mp4 ./dist/videos/tournoi_orks.mp4 ./dist/videos/visite_maire.mp4
 
-      - name: 📂 Upload background video via lftp put
+      - name: 📂 Upload background video via SCP
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SSHPASS: ${{ secrets.FTP_PASSWORD }}
         run: |
-          lftp -c "
-            set ftp:ssl-allow true;
-            set ftp:ssl-force true;
-            set ssl:verify-certificate no;
-            set net:timeout 600;
-            set net:max-retries 5;
-            open -u \"$FTP_USERNAME\",\"$FTP_PASSWORD\" \"$FTP_SERVER\";
-            cd ../domains/associationademi.com/public_html/;
-            mkdir -p videos;
-            put -O videos ./dist/videos/accueil_bg.mp4;
-            quit;
-          "
+          sudo apt-get install -y -qq sshpass
+          sshpass -e ssh -o StrictHostKeyChecking=no -p 65002 u614100224@147.79.103.131 "mkdir -p /home/u614100224/domains/associationademi.com/public_html/videos"
+          sshpass -e scp -o StrictHostKeyChecking=no -P 65002 ./dist/videos/accueil_bg.mp4 u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/videos/accueil_bg.mp4
 
       - name: 📂 Sync files via FTP (excluding bg video)
         env:
