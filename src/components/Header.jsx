@@ -12,7 +12,7 @@ const Header = () => {
         { name: 'Projets', href: '/projets' },
         { name: 'Formations', href: '/formations' },
         { name: 'Partenaires', href: '/partenaires' },
-        { name: 'Soutenir', href: '/contact', isCta: true },
+        { name: 'Soutenir', href: '/soutenir', isCta: true },
         { name: 'Contact', href: '/contact' },
     ];
 
