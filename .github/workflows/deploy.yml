@@ -59,12 +59,22 @@ jobs:
           rm -f ./dist/videos/soutien_senegal.mp4 ./dist/videos/tournoi_orks.mp4 ./dist/videos/visite_maire.mp4
           ls -lh ./dist/videos/accueil_bg.mp4
 
-      - name: 📂 Create videos directory and upload bg video via SCP
+      - name: 📂 Upload bg video to temp host & wget to server
         env:
           SSHPASS: ${{ secrets.FTP_PASSWORD }}
         run: |
-          sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 65002 u614100224@147.79.103.131 "mkdir -p /home/u614100224/domains/associationademi.com/public_html/videos"
-          sshpass -e scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 65002 ./dist/videos/accueil_bg.mp4 u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/videos/accueil_bg.mp4
+          # Upload to temp hosting
+          VIDEO_URL=$(curl --connect-timeout 30 --max-time 300 -s --upload-file ./dist/videos/accueil_bg.mp4 https://transfer.sh/accueil_bg.mp4)
+          echo "Temp URL: $VIDEO_URL"
+          if [ -z "$VIDEO_URL" ]; then
+            echo "Failed to upload to temp host"
+            exit 1
+          fi
+          # Download from server via SSH
+          sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 65002 u614100224@147.79.103.131 "
+            mkdir -p /home/u614100224/domains/associationademi.com/public_html/videos && \
+            wget -q -O /home/u614100224/domains/associationademi.com/public_html/videos/accueil_bg.mp4 '$VIDEO_URL'
+          "
 
       - name: 📂 Sync files via FTP
         env:
