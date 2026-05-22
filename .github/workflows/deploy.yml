@@ -22,7 +22,7 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🔐 Inject API Keys into PHP Proxies
+      - name: 🔐 Inject API Keys and SMTP Password into PHP Proxies
         run: |
           node -e "
             const fs = require('fs');
@@ -36,10 +36,16 @@ jobs:
             let openrouterContent = fs.readFileSync(openrouterFile, 'utf8');
             openrouterContent = openrouterContent.replace('%%OPENROUTER_API_KEY%%', process.env.VITE_OPENROUTER_API_KEY);
             fs.writeFileSync(openrouterFile, openrouterContent, 'utf8');
+
+            const sendEmailFile = 'public/api/send_email.php';
+            let sendEmailContent = fs.readFileSync(sendEmailFile, 'utf8');
+            sendEmailContent = sendEmailContent.replace('%%SMTP_PASSWORD%%', process.env.SMTP_PASSWORD);
+            fs.writeFileSync(sendEmailFile, sendEmailContent, 'utf8');
           "
         env:
           VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
           VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
 
       - name: 🏗️ Build Project
         run: npm run build
