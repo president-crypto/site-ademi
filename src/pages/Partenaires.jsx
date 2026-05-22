@@ -12,7 +12,7 @@ const Partenaires = () => {
                 { name: 'Mission Locale', type: 'Insertion', logo: '/logos/mission-locale.png' },
                 { name: 'CCAS de Poitiers', type: 'Social', logo: '/logos/ccas-poitiers.png' },
                 { name: 'CRESS Nouvelle-Aquitaine', type: 'ESS', logo: '/logos/cress-na.png' },
-                { name: 'Union Européenne', type: 'Erasmus+', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/320px-Flag_of_Europe.svg.png' },
+                { name: 'Union Européenne', type: 'Erasmus+', logo: '/images/partenaires/erasmus-plus.png' },
             ]
         },
         {
@@ -21,7 +21,7 @@ const Partenaires = () => {
             partners: [
                 { name: 'Université de Poitiers', type: 'Académique', logo: '/logos/univ-poitiers.png' },
                 { name: 'IAE de Poitiers', type: 'Management', logo: '/logos/iae-poitiers.jpeg' },
-                { name: 'Lycée Aliénor d\'Aquitaine', type: 'Éducation', logo: null },
+                { name: 'Lycée Aliénor d\'Aquitaine', type: 'Éducation', logo: '/images/partenaires/lycee-alienor-aquitaine.svg' },
                 { name: 'Lycée Le Dolmen', type: 'Éducation', logo: '/logos/lycee-le-dolmen.jpeg' },
                 { name: 'Université de Limoges', type: 'Académique', logo: '/logos/univ-limoges.png' },
             ]
@@ -40,8 +40,8 @@ const Partenaires = () => {
             partners: [
                 { name: 'Association KURIOZ', type: 'ONG', logo: '/logos/kurioz.jpeg' },
                 { name: 'Info Jeunes', type: 'Jeunesse', logo: '/logos/info-jeunes.jpeg' },
-                { name: 'La M3Q', type: 'Local', logo: 'https://logo.clearbit.com/m3q.asso.fr' },
-                { name: 'Barangaï#K2', type: 'Collectif', logo: null },
+                { name: 'La M3Q', type: 'Local', logo: '/images/partenaires/m3q.png' },
+                { name: 'Barangaï#K2', type: 'Collectif', logo: '/images/partenaires/barangai.png' },
                 { name: 'Futuroscope', type: 'Loisirs', logo: '/logos/futuroscope.png' },
                 { name: 'Auto-Ecole Couronneries', type: 'Service', logo: '/logos/auto-ecole-couronneries.jpeg' },
             ]
