@@ -9,6 +9,8 @@ import Partenaires from './pages/Partenaires';
 import Contact from './pages/Contact';
 
 import Gallery from './pages/Gallery';
+import MentionsLegales from './pages/MentionsLegales';
+import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="formations" element={<Formations />} />
           <Route path="partenaires" element={<Partenaires />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="mentions-legales" element={<MentionsLegales />} />
+          <Route path="politique-de-confidentialite" element={<PolitiqueConfidentialite />} />
 
           {/* Legacy Redirects from Squarespace/Google indexing */}
           <Route path="a-propos" element={<Navigate to="/association" replace />} />

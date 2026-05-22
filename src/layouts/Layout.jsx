@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import BabaAssistant from '../components/BabaAssistant';
+import CookieBanner from '../components/CookieBanner';
 
 const Layout = () => {
     return (
@@ -12,6 +13,7 @@ const Layout = () => {
                 <Outlet />
             </main>
             <BabaAssistant />
+            <CookieBanner />
             <Footer />
         </div>
     );

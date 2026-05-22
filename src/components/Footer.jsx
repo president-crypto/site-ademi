@@ -69,6 +69,10 @@ const Footer = () => {
 
                 <div className="border-t border-gray-700 mt-12 pt-8 text-center text-sm text-gray-400">
                     <p>&copy; {new Date().getFullYear()} Association ADEMI. Tous droits réservés.</p>
+                    <div className="flex justify-center gap-6 mt-3">
+                        <a href="/mentions-legales" className="hover:text-secondary transition-colors">Mentions légales</a>
+                        <a href="/politique-de-confidentialite" className="hover:text-secondary transition-colors">Politique de confidentialité</a>
+                    </div>
                 </div>
             </div>
         </footer>
