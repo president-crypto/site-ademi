@@ -79,7 +79,13 @@ const BabaAssistant = () => {
             linkText: 'Nous contacter pour adhérer'
         },
         {
-            keywords: ['don', 'soutenir', 'aider', 'argent', 'financement'],
+            keywords: ['aider mon projet', 'réaliser mon projet', 'mon projet', 'aide pour mon projet', 'accompagnement projet', 'créer mon projet'],
+            response: "ADEMI accompagne les jeunes et adultes dans la réalisation de leurs projets, que ce soit dans l'entreprenariat, la mobilité internationale ou l'insertion professionnelle. Nous proposons le DAP (Dispositif d'Accompagnement Personnalisé), des formations en Leadership & Entrepreneuriat, des opportunités de mobilité internationale via Erasmus+, et un accompagnement pour la création d'entreprise. Nos équipes vous aident à structurer votre idée, à développer votre projet et à trouver les financements adaptés.",
+            link: '/contact',
+            linkText: 'Parler de mon projet'
+        },
+        {
+            keywords: ['don', 'argent', 'financement'],
             response: "Votre soutien est précieux ! Pour faire un don ou soutenir nos projets d'insertion JAMO/VAMO, vous pouvez nous contacter directement. Nous vous expliquerons les modalités.",
             link: '/contact',
             linkText: 'Nous soutenir'
