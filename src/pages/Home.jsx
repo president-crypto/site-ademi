@@ -43,9 +43,13 @@ const Home = () => {
     useEffect(() => {
         const el = videoRef.current;
         if (!el) return;
+        const replay = () => el.play().catch(() => {});
+        el.addEventListener('ended', replay);
         el.loop = true;
         el.muted = true;
         el.playsInline = true;
+        replay();
+        return () => el.removeEventListener('ended', replay);
     }, []);
 
     return (
@@ -58,12 +62,10 @@ const Home = () => {
                     <video
                         ref={videoRef}
                         autoPlay
-                        loop
                         muted
                         playsInline
                         className="absolute inset-0 w-full h-full object-cover scale-105"
                         poster="/Photos/poster_home.jpg"
-                        onEnded={(e) => { e.target.play(); }}
                     >
                         <source src="/videos/accueil_bg.mp4" type="video/mp4" />
                         Votre navigateur ne supporte pas la lecture de vidéos.
