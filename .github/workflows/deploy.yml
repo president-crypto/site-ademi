@@ -53,33 +53,18 @@ jobs:
           rm -rf ./dist/videos/cite_folder ./dist/videos/maire_folder ./dist/videos/orks_folder ./dist/videos/senegal_folder ./dist/videos/stage_hidaya ./dist/videos/stage_wendy "./dist/videos/VIDEO ARRIERE-PLAN ACCUEIL SITE ADEMI" "./dist/videos/Video emission radio REVELATIONS  avec Samantha"
           rm -f ./dist/videos/soutien_senegal.mp4 ./dist/videos/tournoi_orks.mp4 ./dist/videos/visite_maire.mp4
 
-      - name: 📂 Sync files via FTP
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      - name: 🔑 Setup SSH key
         run: |
-          # Retry loop for FTP connectivity
-          for i in 1 2 3; do
-            echo "FTP sync attempt $i..."
-            lftp -c "
-              set ftp:ssl-allow true;
-              set ftp:ssl-force true;
-              set ssl:verify-certificate no;
-              set net:timeout 120;
-              set net:max-retries 3;
-              set dns:order 'inet';
-              open -u \"$FTP_USERNAME\",\"$FTP_PASSWORD\" \"$FTP_SERVER\";
-              mirror -R --delete --verbose \
-                --exclude 'videos/' \
-                ./dist/ ../domains/associationademi.com/public_html/;
-              quit;
-            " && echo "FTP sync succeeded!" && exit 0
-            echo "FTP sync failed on attempt $i, retrying in 10s..."
-            sleep 10
-          done
-          echo "All FTP sync attempts failed"
-          exit 1
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p 65002 -H 147.79.103.131 >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: 📂 Deploy via rsync over SSH
+        run: |
+          rsync -avz --delete --exclude 'videos/' \
+            -e "ssh -p 65002 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./dist/ u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/
 
       - name: 🌐 Verify PHP endpoints
         run: |
