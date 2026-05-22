@@ -35,6 +35,12 @@ const BabaAssistant = () => {
 
     const knowledgeBase = [
         {
+            keywords: ['radio', 'sama radio', 'culture', 'slogan', 'mission', 'podcast', 'écouter', 'fréquence', 'samaradio'],
+            response: "Sama Radio est la web radio du projet ADEMI. Son slogan est « Le bonheur d'être ensemble ». Sa mission est d'optimiser la communication pour une meilleure inclusion, notamment pour les diasporas et les communautés immigrées. Elle sert de facilitateur pour créer des espaces de dialogue interculturel, maintenir les liens avec les pays d'origine et mieux expliquer les enjeux de la migration. Elle propose des podcasts, émissions et ateliers radio. On peut l'écouter sur www.sama-radio.com. Contact : samaradio86@gmail.com — 30 rue Henri Dunant, 86000 Poitiers.",
+            link: 'https://www.sama-radio.com',
+            linkText: 'Écouter Sama Radio'
+        },
+        {
             keywords: ['qui est ademi', 'définition', 'sigle', 'c\'est quoi'],
             response: "ADEMI signifie Appui au Développement Économique et à la Mobilité Internationale. C'est une association qui accompagne les jeunes et adultes ayant moins d'opportunités (JAMO et VAMO) dans l'entreprenariat et l'insertion professionnelle.",
         },
@@ -49,12 +55,6 @@ const BabaAssistant = () => {
         {
             keywords: ['président', 'baba badji', 'dirigeant', 'équipe', 'qui travaille', 'responsable', 'bureau'],
             response: "L'équipe d'ADEMI est dirigée par Monsieur BADJI Baba (Président). Elle comprend aussi Doudou DJIBA (Vice-Président), Mouhidine MADI SIDI (Relations Internationales), Carine MEDERER (Secrétaire Générale), Ndèye Yacine CAMARA (Projets), Bourama DIEDHIOU (Diaspora), Mohamed KOTE (Paris) et Seynabou DIAGNE (Trésorière).",
-        },
-        {
-            keywords: ['radio', 'sama radio', 'culture', 'slogan', 'mission', 'podcast', 'écouter', 'fréquence', 'samaradio'],
-            response: "Sama Radio est la web radio du projet ADEMI. Son slogan est « Le bonheur d'être ensemble ». Sa mission est d'optimiser la communication pour une meilleure inclusion, notamment pour les diasporas et les communautés immigrées. Elle sert de facilitateur pour créer des espaces de dialogue interculturel, maintenir les liens avec les pays d'origine et mieux expliquer les enjeux de la migration. Elle propose des podcasts, émissions et ateliers radio. On peut l'écouter sur www.sama-radio.com. Contact : samaradio86@gmail.com — 30 rue Henri Dunant, 86000 Poitiers.",
-            link: 'https://www.sama-radio.com',
-            linkText: 'Écouter Sama Radio'
         },
         {
             keywords: ['cité éducative', 'quartier', 'couronneries', 'poitiers'],
