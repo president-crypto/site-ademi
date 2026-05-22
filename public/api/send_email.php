@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $to = 'contact@associationademi.com';
-    $from = 'contact@associationademi.com';
+    $from = 'president@associationademi.com';
     $type = isset($data['type']) ? $data['type'] : 'Contact';
     $name = isset($data['name']) ? strip_tags($data['name']) : 'Anonyme';
     $email = isset($data['email']) ? filter_var($data['email'], FILTER_SANITIZE_EMAIL) : '';
@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_content .= "Téléphone : $phone\n\n";
     $email_content .= "Message :\n$message\n";
 
-    $smtp_host = 'smtp.hostinger.com';
+    $smtp_host = 'smtp.gmail.com';
     $smtp_port = 465;
-    $smtp_user = $from;
+    $smtp_user = 'president@associationademi.com';
     $smtp_pass = '%%SMTP_PASSWORD%%';
 
     $raw_headers = "From: $from\r\n";
