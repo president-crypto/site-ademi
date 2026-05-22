@@ -51,13 +51,15 @@ jobs:
       - name: 📂 Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: 📂 Upload background video via SSH
-        env:
-          SSH_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      - name: 📂 Install ffmpeg
+        run: sudo apt-get install -y -qq ffmpeg
+
+      - name: 📂 Compress background video
         run: |
-          sudo apt-get install -y -qq sshpass
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -p 65002 u614100224@147.79.103.131 "mkdir -p /home/u614100224/domains/associationademi.com/public_html/videos"
-          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -P 65002 ./dist/videos/accueil_bg.mp4 u614100224@147.79.103.131:domains/associationademi.com/public_html/videos/accueil_bg.mp4
+          ffprobe -v quiet -print_format json -show_format -show_streams ./dist/videos/accueil_bg.mp4
+          ffmpeg -y -i ./dist/videos/accueil_bg.mp4 -vf "scale=1920:-2" -c:v libx264 -crf 28 -preset fast -c:a aac -b:a 64k ./dist/videos/accueil_bg_compressed.mp4
+          mv ./dist/videos/accueil_bg_compressed.mp4 ./dist/videos/accueil_bg.mp4
+          ls -lh ./dist/videos/accueil_bg.mp4
 
       - name: 📂 Remove large gallery videos from dist (keep only background)
         run: |
