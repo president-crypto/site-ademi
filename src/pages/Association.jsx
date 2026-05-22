@@ -8,10 +8,11 @@ const Association = () => {
         { name: 'MADI SIDI Mouhidine', role: 'Chargé de Relations Internationales' },
         { name: 'HASSANI Mina', role: 'Chargée de la Communication' },
         { name: 'MEDERER Carine', role: 'Secrétaire Générale' },
-        { name: 'CAMARA Ndèye Yacine', role: 'Chargée de Suivi de Projets' },
+        { name: 'CAMARA Ndèye Yacine', role: 'Chargée de relations internationales' },
         { name: 'DIEDHIOU Bourama', role: 'Chargé Diaspora' },
         { name: 'KOTE Mohamed', role: 'Représentant à Paris' },
-        { name: 'DIAGNE Seynabou', role: 'Auditrice & Trésorière' },
+        { name: 'DIAGNE Seynabou', role: 'Trésorière' },
+        { name: 'CODO-TOAFODE Arielle', role: 'Assistante de direction et RH' },
     ];
 
     return (
