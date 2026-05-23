@@ -5,8 +5,8 @@ const Association = () => {
     const teamMembers = [
         { name: 'BADJI Baba', role: 'Président' },
         { name: 'DJIBA Doudou', role: 'Vice-Président' },
-        { name: 'MADI SIDI Mouhidine', role: 'Chargé de Relations Internationales' },
-        { name: 'HASSANI Mina', role: 'Chargée de la Communication' },
+        { name: 'MADI SIDI Mouhidine', role: 'Chargé de projets et de Relations Internationales' },
+        { name: 'HASSANI Mina', role: 'Chargée de la Communication et de projets' },
         { name: 'MEDERER Carine', role: 'Secrétaire Générale' },
         { name: 'CAMARA Ndèye Yacine', role: 'Chargée de relations internationales' },
         { name: 'DIEDHIOU Bourama', role: 'Chargé Diaspora' },
