@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { ArrowRight, Users, Lightbulb, GraduationCap, ExternalLink, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -38,20 +38,6 @@ const news = [
 ];
 
 const Home = () => {
-    const videoRef = useRef(null);
-
-    useEffect(() => {
-        const el = videoRef.current;
-        if (!el) return;
-        const replay = () => el.play().catch(() => {});
-        el.addEventListener('ended', replay);
-        el.loop = true;
-        el.muted = true;
-        el.playsInline = true;
-        replay();
-        return () => el.removeEventListener('ended', replay);
-    }, []);
-
     return (
         <div className="flex flex-col gap-24 pb-24">
             {/* Hero Section with Video */}
@@ -60,11 +46,11 @@ const Home = () => {
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-white/10 z-10" />
                     <video
-                        ref={videoRef}
                         autoPlay
                         loop
                         muted
                         playsInline
+                        preload="auto"
                         className="absolute inset-0 w-full h-full object-cover scale-105"
                         poster="/Photos/poster_home.jpg"
                     >
