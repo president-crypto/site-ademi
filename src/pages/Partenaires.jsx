@@ -41,7 +41,7 @@ const Partenaires = () => {
                 { name: 'Association KURIOZ', type: 'ONG', logo: '/logos/kurioz.jpeg' },
                 { name: 'Info Jeunes', type: 'Jeunesse', logo: '/logos/info-jeunes.jpeg' },
                 { name: 'La M3Q', type: 'Local', logo: '/images/partenaires/m3q.png' },
-                { name: 'Barangaï#K2', type: 'Collectif', logo: '/images/partenaires/barangai.png' },
+                { name: 'Barangaï#K2', type: 'Collectif', logo: '/logos/barangai-k2.png.jpg' },
                 { name: 'Futuroscope', type: 'Loisirs', logo: '/logos/futuroscope.png' },
                 { name: 'Auto-Ecole Couronneries', type: 'Service', logo: '/logos/auto-ecole-couronneries.jpeg' },
             ]
