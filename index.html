@@ -21,34 +21,19 @@
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
   <script>
-    (function() {
-      var VIDEO_SRC = '/videos/accueil_bg.mp4';
-      function ensureBgVideo(el) {
-        if (!el || el._ademiVideoFixed) return;
-        if (el.getAttribute('src') !== VIDEO_SRC && !el.querySelector('source[src="' + VIDEO_SRC + '"]')) return;
-        el._ademiVideoFixed = true;
-        el.loop = true;
-        el.muted = true;
-        el.playsInline = true;
-        el.setAttribute('loop', '');
-        el.setAttribute('muted', '');
-        el.setAttribute('playsinline', '');
-        el.addEventListener('ended', function() { el.play().catch(function(){}); });
-        function tryPlay() {
-          el.play().catch(function() {
-            setTimeout(tryPlay, 500);
-          });
-        }
-        tryPlay();
+    document.addEventListener('DOMContentLoaded', function() {
+      function fixVideo() {
+        var videos = document.querySelectorAll('video');
+        videos.forEach(function(v) {
+          v.loop = true;
+          v.muted = true;
+          v.autoplay = true;
+          v.play().catch(function(){});
+        });
       }
-      var observer = new MutationObserver(function() {
-        var el = document.querySelector('video');
-        if (el) ensureBgVideo(el);
-      });
-      observer.observe(document.documentElement, { childList: true, subtree: true });
-      var existing = document.querySelector('video');
-      if (existing) ensureBgVideo(existing);
-    })();
+      fixVideo();
+      setInterval(fixVideo, 2000);
+    });
   </script>
 </body>
 
