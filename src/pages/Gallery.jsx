@@ -212,7 +212,7 @@ const Gallery = () => {
                                 <video
                                     src={selectedMedia.src}
                                     controls
-                                    autoPlay
+                                    
                                     className="w-full h-full object-contain"
                                 />
                             ) : (
