@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Cookie, X } from 'lucide-react';
 
 const CookieBanner = () => {
-    const [visible, setVisible] = useState(false);
-
-    useEffect(() => {
-        const accepted = localStorage.getItem('ademi_cookies_accepted');
-        if (!accepted) setVisible(true);
-    }, []);
+    const [visible, setVisible] = useState(() => {
+        try {
+            return !localStorage.getItem('ademi_cookies_accepted');
+        } catch {
+            return true;
+        }
+    });
 
     const accept = () => {
         localStorage.setItem('ademi_cookies_accepted', 'true');
