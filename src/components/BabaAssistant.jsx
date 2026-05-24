@@ -53,8 +53,8 @@ const BabaAssistant = () => {
             response: "Les VAMO (Vieux Ayant Moins d'Opportunités) sont les personnes de plus de 25 ans que nous soutenons dans leur insertion socio-professionnelle.",
         },
         {
-            keywords: ['président', 'baba badji', 'dirigeant', 'équipe', 'qui travaille', 'responsable', 'bureau'],
-            response: "L'équipe d'ADEMI est dirigée par Monsieur BADJI Baba (Président). Elle comprend aussi Doudou DJIBA (Vice-Président), Mouhidine MADI SIDI (Relations Internationales), Carine MEDERER (Secrétaire Générale), Ndèye Yacine CAMARA (Projets), Bourama DIEDHIOU (Diaspora), Mohamed KOTE (Paris) et Seynabou DIAGNE (Trésorière).",
+            keywords: ['président', 'baba badji', 'dirigeant', 'équipe', 'qui travaille', 'responsable', 'bureau', 'membres', 'membre', 'bureau exécutif', 'badji', 'doudou', 'djiba', 'hassani', 'mina', 'madi sidi', 'mouhidine', 'mederer', 'carine', 'camara', 'ndèye', 'yacine', 'diedhiou', 'bourama', 'kote', 'mohamed', 'diagne', 'seynabou', 'codo', 'toafode', 'arielle', 'trésorière', 'secrétaire générale', 'vice-président', 'représentant paris', 'assistante de direction'],
+            response: "Voici l'équipe complète du bureau d'ADEMI :\n\n• BADJI Baba — Président\n• DJIBA Doudou — Vice-Président\n• HASSANI Mina — Chargée de la Communication et de projets\n• MADI SIDI Mouhidine — Chargé de projets et de Relations Internationales\n• MEDERER Carine — Secrétaire Générale\n• CAMARA Ndèye Yacine — Chargée de relations internationales\n• DIEDHIOU Bourama — Chargé de la Diaspora\n• KOTE Mohamed — Représentant Paris\n• DIAGNE Seynabou — Trésorière\n• CODO-TOAFODE Arielle — Assistante de direction et RH",
         },
         {
             keywords: ['cité éducative', 'quartier', 'couronneries', 'poitiers'],
