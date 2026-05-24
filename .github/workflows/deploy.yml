@@ -66,6 +66,34 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p 65002 -H 147.79.103.131 >> ~/.ssh/known_hosts 2>/dev/null
 
+      - name: 🎬 Compress background video (if over 10MB)
+        run: |
+          scp -P 65002 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/videos/accueil_bg.mp4 \
+            /tmp/accueil_bg.mp4 2>/dev/null || true
+
+          if [ -f /tmp/accueil_bg.mp4 ]; then
+            FILE_SIZE=$(stat -c%s /tmp/accueil_bg.mp4 2>/dev/null || echo 0)
+            echo "Current video size: $(( FILE_SIZE / 1048576 )) MB"
+            if [ "$FILE_SIZE" -gt 10485760 ]; then
+              echo "Video is over 10MB, compressing..."
+              sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+              ffmpeg -y -i /tmp/accueil_bg.mp4 -c:v libx264 -crf 28 -preset medium -c:a aac -b:a 64k \
+                -vf "scale=1280:-2" -movflags faststart /tmp/accueil_bg_compressed.mp4
+              COMPRESSED_SIZE=$(stat -c%s /tmp/accueil_bg_compressed.mp4)
+              echo "Compressed size: $(( COMPRESSED_SIZE / 1048576 )) MB"
+              scp -P 65002 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+                /tmp/accueil_bg_compressed.mp4 \
+                u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/videos/accueil_bg.mp4
+              echo "Compression complete!"
+            else
+              echo "Video is already under 10MB, skipping compression."
+            fi
+            rm -f /tmp/accueil_bg.mp4 /tmp/accueil_bg_compressed.mp4
+          else
+            echo "Video not found on server, skipping compression."
+          fi
+
       - name: 📂 Deploy via rsync over SSH
         run: |
           rsync -avz --delete --exclude 'videos/' --exclude 'images/partenaires/' \
