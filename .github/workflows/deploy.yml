@@ -54,11 +54,6 @@ jobs:
           VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
           VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
 
-      - name: 📂 Remove large gallery videos from dist (keep only background)
-        run: |
-          rm -rf ./dist/videos/cite_folder ./dist/videos/maire_folder ./dist/videos/orks_folder ./dist/videos/senegal_folder ./dist/videos/stage_hidaya ./dist/videos/stage_wendy "./dist/videos/VIDEO ARRIERE-PLAN ACCUEIL SITE ADEMI" "./dist/videos/Video emission radio REVELATIONS  avec Samantha"
-          rm -f ./dist/videos/soutien_senegal.mp4 ./dist/videos/tournoi_orks.mp4 ./dist/videos/visite_maire.mp4
-
       - name: 🔑 Setup SSH key
         run: |
           mkdir -p ~/.ssh
@@ -96,7 +91,7 @@ jobs:
 
       - name: 📂 Deploy via rsync over SSH
         run: |
-          rsync -avz --delete --exclude 'videos/' --exclude 'images/partenaires/' \
+          rsync -avz --delete --exclude 'images/partenaires/' \
             -e "ssh -p 65002 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./dist/ u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/
 
