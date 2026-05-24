@@ -198,7 +198,7 @@ const Home = () => {
                                 Vos dons permettent de financer les projets d'insertion des **JAMO** et **VAMO**, d'entretenir nos outils pédagogiques et de favoriser la mobilité internationale. Chaque contribution est un pas de plus vers une société plus inclusive.
                             </p>
                             <Link
-                                to="/contact"
+                                to="/soutenir"
                                 className="group inline-flex items-center gap-4 bg-white text-primary px-10 py-5 rounded-2xl font-black hover:bg-secondary hover:text-white transition-all transform hover:-translate-y-1 shadow-2xl shadow-black/20"
                             >
                                 Faire un don / Nous soutenir

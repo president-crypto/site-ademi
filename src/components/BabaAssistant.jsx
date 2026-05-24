@@ -87,7 +87,7 @@ const BabaAssistant = () => {
         {
             keywords: ['don', 'argent', 'financement'],
             response: "Votre soutien est précieux ! Pour faire un don ou soutenir nos projets d'insertion JAMO/VAMO, vous pouvez nous contacter directement. Nous vous expliquerons les modalités.",
-            link: '/contact',
+            link: '/soutenir',
             linkText: 'Nous soutenir'
         }
     ];
