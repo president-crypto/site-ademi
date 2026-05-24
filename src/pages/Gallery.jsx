@@ -59,7 +59,7 @@ const Gallery = () => {
             title: 'Rapport de stage - Hidaya',
             description: 'Présentation du rapport de fin de stage de Hidaya à l\'ADEMI.',
             src: '/videos/stage_hidaya/20251031_154332.mp4',
-            thumbnail: '/Photos/senegal_folder/WhatsApp Image 2025-12-29 at 21.20.05.jpeg'
+            
         },
         {
             id: 'v7',
