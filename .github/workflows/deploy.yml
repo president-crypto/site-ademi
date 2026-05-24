@@ -91,7 +91,7 @@ jobs:
 
       - name: 📂 Deploy via rsync over SSH
         run: |
-          rsync -avz --delete --exclude 'images/partenaires/' \
+          rsync -avz --delete --exclude 'images/partenaires/' --exclude 'videos/' \
             -e "ssh -p 65002 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./dist/ u614100224@147.79.103.131:/home/u614100224/domains/associationademi.com/public_html/
 
