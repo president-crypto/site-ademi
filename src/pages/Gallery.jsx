@@ -173,7 +173,6 @@ const Gallery = () => {
                                     <video
                                         src={`${item.src}#t=1`}
                                         className="w-full h-full object-cover"
-                                        muted
                                         playsInline
                                     />
                                 )}
