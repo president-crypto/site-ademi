@@ -58,7 +58,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Rapport de stage - Hidaya',
             description: 'Présentation du rapport de fin de stage de Hidaya à l\'ADEMI.',
-            src: '/videos/stage_hidaya/20251031_154332.mp4',
+            src: '/videos/20251031_154332.mp4',
             
         },
         {
@@ -67,7 +67,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Rapport de stage - Wendy',
             description: 'Présentation du rapport de fin de stage de Wendy à l\'ADEMI.',
-            src: '/videos/stage_wendy/20260213_153701.mp4'
+            src: '/videos/20260213_153701.mp4'
         },
         // Photos - Cité Éducative
         {
