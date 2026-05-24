@@ -41,7 +41,7 @@ const Gallery = () => {
             title: 'Prépa tournoi interquartier jeux vidéo',
             description: 'Compétition de e-sport organisée en partenariat avec l\'association ORKS.',
             src: '/videos/tournoi_orks.mp4',
-            thumbnail: '/Photos/orks_folder/20260210_103902[1].jpg'
+            thumbnail: '/Photos/orks_folder/20260210_103906.jpg'
         },
         {
             id: 'v5',
@@ -49,7 +49,8 @@ const Gallery = () => {
             category: 'video',
             title: 'Émission radio : Révélations avec Samantha',
             description: 'Sama Radio - Émission spéciale avec Samantha pour le projet REVELATIONS.',
-            src: '/videos/Video emission radio REVELATIONS  avec Samantha/20250725_181926.mp4'
+            src: '/videos/Video emission radio REVELATIONS  avec Samantha/20250725_181926.mp4',
+            thumbnail: '/Photos/maire_folder/WhatsApp Image 2026-01-28 at 18.50.17.jpeg'
         },
         {
             id: 'v6',
@@ -57,7 +58,8 @@ const Gallery = () => {
             category: 'video',
             title: 'Rapport de stage - Hidaya',
             description: 'Présentation du rapport de fin de stage de Hidaya à l\'ADEMI.',
-            src: '/videos/stage_hidaya/20251031_154332.mp4'
+            src: '/videos/stage_hidaya/20251031_154332.mp4',
+            thumbnail: '/Photos/senegal_folder/WhatsApp Image 2025-12-29 at 21.20.05.jpeg'
         },
         {
             id: 'v7',
