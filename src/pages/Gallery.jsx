@@ -22,7 +22,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Cité Éducative Poitiers',
             description: 'Immersion au cœur du programme Cité Éducative aux Couronneries.',
-            src: '/videos/P1110031.MP4',
+            src: '/videos/cite_folder/P1110031.MP4',
             thumbnail: '/Photos/cite_folder/P1110108.JPG'
         },
         {
@@ -49,7 +49,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Émission radio : Révélations avec Samantha',
             description: 'Sama Radio - Émission spéciale avec Samantha pour le projet REVELATIONS.',
-            src: '/videos/20250725_181926.mp4',
+            src: '/videos/Video_emission_radio_REVELATIONS_avec_Samantha/20250725_181926.mp4',
             thumbnail: '/Photos/maire_folder/WhatsApp Image 2026-01-28 at 18.50.17.jpeg'
         },
         {
@@ -58,7 +58,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Rapport de stage - Hidaya',
             description: 'Présentation du rapport de fin de stage de Hidaya à l\'ADEMI.',
-            src: '/videos/20251031_154332.mp4',
+            src: '/videos/stage_hidaya/20251031_154332.mp4',
             
         },
         {
@@ -67,7 +67,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Rapport de stage - Wendy',
             description: 'Présentation du rapport de fin de stage de Wendy à l\'ADEMI.',
-            src: '/videos/20260213_153701.mp4'
+            src: '/videos/stage_wendy/20260213_153701.mp4'
         },
         // Photos - Cité Éducative
         {
