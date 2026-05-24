@@ -22,7 +22,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Cité Éducative Poitiers',
             description: 'Immersion au cœur du programme Cité Éducative aux Couronneries.',
-            src: '/videos/cite_folder/P1110031.MP4',
+            src: '/videos/P1110031.MP4',
             thumbnail: '/Photos/cite_folder/P1110108.JPG'
         },
         {
@@ -49,7 +49,7 @@ const Gallery = () => {
             category: 'video',
             title: 'Émission radio : Révélations avec Samantha',
             description: 'Sama Radio - Émission spéciale avec Samantha pour le projet REVELATIONS.',
-            src: '/videos/Video emission radio REVELATIONS  avec Samantha/20250725_181926.mp4',
+            src: '/videos/20250725_181926.mp4',
             thumbnail: '/Photos/maire_folder/WhatsApp Image 2026-01-28 at 18.50.17.jpeg'
         },
         {
