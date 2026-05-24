@@ -210,9 +210,9 @@ const Gallery = () => {
                         <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl relative">
                             {selectedMedia.type === 'video' ? (
                                 <video
+                                    key={selectedMedia.src}
                                     src={selectedMedia.src}
                                     controls
-                                    
                                     className="w-full h-full object-contain"
                                 />
                             ) : (
