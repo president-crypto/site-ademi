@@ -13,6 +13,7 @@ const Partenaires = () => {
                 { name: 'CCAS de Poitiers', type: 'Social', logo: '/logos/ccas-poitiers.png' },
                 { name: 'CRESS Nouvelle-Aquitaine', type: 'ESS', logo: '/logos/cress-na.png' },
                 { name: 'Union Européenne', type: 'Erasmus+', logo: '/images/partenaires/union-europeenne.svg' },
+                { name: 'Agence du Service Civique', type: 'Public', logo: '/logos/service-civique.svg' },
             ]
         },
         {
